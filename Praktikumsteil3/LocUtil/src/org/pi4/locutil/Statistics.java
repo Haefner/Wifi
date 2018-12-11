@@ -110,30 +110,30 @@ public class Statistics {
 		return (sum / (double) n);
 	}
 		
-	/**
-	 * Averages k positions.
-	 * 
-	 * @param values	the positions
-	 * @return	the averaged position
-	 */
-	public static GeoPosition avg(List<GeoPosition> values) {
-		int k = values.size();
-		if (k < 1)
-			throw new IllegalArgumentException("Length must be >= 1");
-		double x = 0, y = 0, z = 0, o = 0;
-		for (int i = 0; i < k; i++) {
-			GeoPosition value = values.get(i);
-			x += value.getX();
-			y += value.getY();
-			z += value.getZ();
-			o += value.getOrientation();
-		}
-		x /= (double) k;
-		y /= (double) k;
-		z /= (double) k;
-		o /= (double) k;
-		return new GeoPosition(x, y, z, o % 360.0);
-	}
+//	/**
+//	 * Averages k positions.
+//	 * 
+//	 * @param values	the positions
+//	 * @return	the averaged position
+//	 */
+//	public static GeoPosition avg(List<GeoPosition> values) {
+//		int k = values.size();
+//		if (k < 1)
+//			throw new IllegalArgumentException("Length must be >= 1");
+//		double x = 0, y = 0, z = 0, o = 0;
+//		for (int i = 0; i < k; i++) {
+//			GeoPosition value = values.get(i);
+//			x += value.getX();
+//			y += value.getY();
+//			z += value.getZ();
+//			o += value.getOrientation();
+//		}
+//		x /= (double) k;
+//		y /= (double) k;
+//		z /= (double) k;
+//		o /= (double) k;
+//		return new GeoPosition(x, y, z, o % 360.0);
+//	}
 	
 	/**
 	 * Averages k positions.
