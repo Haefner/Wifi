@@ -6,6 +6,15 @@ public class Main {
 		Empirical_FP_NN eFPNN = new Empirical_FP_NN();
 		eFPNN.berechneEmpiricalFP_NN();
 		
+		Empirical_FP_KNN eFPKNN = new Empirical_FP_KNN();
+		eFPKNN.berechneEmpiricalFP_KNN(3);
+		
+		Model_FP_NN mFPNN = new Model_FP_NN();
+		mFPNN.berechneModel_FP_NN();
+		
+		Model_FP_KNN mFPKNN = new Model_FP_KNN();
+		mFPKNN.berechneModel_FP_KNN(3);
+		
 	}
 
 }
