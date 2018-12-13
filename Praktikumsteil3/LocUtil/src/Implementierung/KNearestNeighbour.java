@@ -30,8 +30,7 @@ public class KNearestNeighbour {
 	 * Empfangsstärke ACP3)
 	 * 
 	 * @param messpunkt      Messpunkt mit dem verglichen werden soll
-	 * @param offlineTraces  Alle zu vergleichenden Messpunkte. <b> Eine VORAUSWAHL
-	 *                       muss zuvor getroffen werden </b>
+	 * @param offlineTraces  Alle zu vergleichenden Messpunkte. 
 	 * @param anzahlNachbarn Die Anzahl der k-nächsten Nachbarn, die am nächsten zur
 	 *                       gemessenen Position sind
 	 * @return Die k-Nachbarn, die am nächsten zur gemessenen Position sind
@@ -150,12 +149,12 @@ public class KNearestNeighbour {
 	 * 
 	 * @return Die gemittelte Position, an der man sich befindet
 	 */
-	public GeoPosition getAvaragePositionOfNeighbours(TraceEntry messpunkt,
+	public GeoPosition getAvaragePositionOfNeighbours(
 			HashMap<TraceEntry, Double> naechsteNachbarnDistanz) {
 
-		if (messpunkt == null || naechsteNachbarnDistanz == null || naechsteNachbarnDistanz.size() == 0) {
-			throw new RuntimeException("getAvaragePosition braucht einen Messpunkt und eine Liste mit den "
-					+ "nächsten Nachbarn zur durchschnittsberechnung");
+		if ( naechsteNachbarnDistanz == null || naechsteNachbarnDistanz.size() == 0) {
+			throw new RuntimeException("getAvaragePosition braucht eine Liste mit den "
+					+ "nächsten Nachbarn zur durchschnitts Berechnung");
 		}
 
 		double xTotal = 0;

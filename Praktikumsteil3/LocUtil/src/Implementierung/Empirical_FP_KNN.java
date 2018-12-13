@@ -27,7 +27,7 @@ public class Empirical_FP_KNN {
 		for (TraceEntry onlineFp : onlineTrace) {
 			HashMap<TraceEntry, Double> naechsteNachbarn = k_NearestNeighbour.whoAreTheKNearestNeigbours(onlineFp,
 					offlineTrace, anzahlNachbarn);
-			GeoPosition gemitteltePosition = k_NearestNeighbour.getAvaragePositionOfNeighbours(onlineFp,
+			GeoPosition gemitteltePosition = k_NearestNeighbour.getAvaragePositionOfNeighbours(
 					naechsteNachbarn);
 			System.out.println(gemitteltePosition);
 			exakteGemittelteGeoposition.put(onlineFp.getGeoPosition(), gemitteltePosition);
