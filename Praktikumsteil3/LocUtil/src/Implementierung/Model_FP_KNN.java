@@ -10,13 +10,13 @@ import org.pi4.locutil.io.TraceGenerator;
 import org.pi4.locutil.trace.Parser;
 import org.pi4.locutil.trace.TraceEntry;
 
-public class Model_FP_NN {
+public class Model_FP_KNN {
 	
 	private List<TraceEntry> offlineTrace;
 	private List<TraceEntry> onlineTrace;
 	private List<TraceEntry> generatedTrace;
 	
-	public HashMap<GeoPosition, GeoPosition> berechneModel_FP_NN() {
+	public HashMap<GeoPosition, GeoPosition> berechneModel_FP_KNN(int anzahlNachbarn) {
 		
 		getTraces();
 		Model model = new Model(offlineTrace);
@@ -26,7 +26,7 @@ public class Model_FP_NN {
 		HashMap<GeoPosition, GeoPosition> exakteGemittelteGeoposition = new HashMap<>();
 		for (TraceEntry onlineFp : onlineTrace) {
 			HashMap<TraceEntry, Double> naechsteNachbarn = k_NearestNeighbour.whoAreTheKNearestNeigbours(onlineFp,
-					generatedTrace, 1);
+					generatedTrace, anzahlNachbarn);
 			GeoPosition gemitteltePosition = k_NearestNeighbour.getAvaragePositionOfNeighbours(onlineFp,
 					naechsteNachbarn);
 			System.out.println(gemitteltePosition);
