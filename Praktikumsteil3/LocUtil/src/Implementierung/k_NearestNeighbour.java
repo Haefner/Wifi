@@ -12,8 +12,8 @@ import org.pi4.locutil.trace.SignalStrengthSamples;
 import org.pi4.locutil.trace.TraceEntry;
 
 /**
- * Zur Positionsbestimmung des Empfängers, werden erst die k-Nächsten Nachbarn
- * bestimmt. Aus den k-Nächsten Nachbarn wird anschließend die Position
+ * Zur Positionsbestimmung des Empfï¿½ngers, werden erst die k-Nï¿½chsten Nachbarn
+ * bestimmt. Aus den k-Nï¿½chsten Nachbarn wird anschlieï¿½end die Position
  * gemittelt
  * 
  * @author haefn
@@ -23,18 +23,18 @@ public class k_NearestNeighbour {
 
 	/**
 	 * Ermittle aus dem zuvor gesammelten Fingerprint und den gemessenen
-	 * Fingerprints, über die Euklidische Distanz, die k-Nächsten Nachbarn
+	 * Fingerprints, ï¿½ber die Euklidische Distanz, die k-Nï¿½chsten Nachbarn
 	 * 
 	 * Gesammelter Fingerpring beispielsweise E1 (1,1,1,-25,-35,-55) (X-Koordinate,
-	 * y-Koordinate, z-Koordinate, Empfangsstärke ACP1, Empfangsstärke ACP2,
-	 * Empfangsstärke ACP3)
+	 * y-Koordinate, z-Koordinate, Empfangsstï¿½rke ACP1, Empfangsstï¿½rke ACP2,
+	 * Empfangsstï¿½rke ACP3)
 	 * 
 	 * @param messpunkt      Messpunkt mit dem verglichen werden soll
 	 * @param offlineTraces  Alle zu vergleichenden Messpunkte. <b> Eine VORAUSWAHL
 	 *                       muss zuvor getroffen werden </b>
-	 * @param anzahlNachbarn Die Anzahl der k-nächsten Nachbarn, die am nächsten zur
+	 * @param anzahlNachbarn Die Anzahl der k-nï¿½chsten Nachbarn, die am nï¿½chsten zur
 	 *                       gemessenen Position sind
-	 * @return Die k-Nachbarn, die am nächsten zur gemessenen Position sind
+	 * @return Die k-Nachbarn, die am nï¿½chsten zur gemessenen Position sind
 	 */
 	public HashMap<TraceEntry, Double> whoAreTheKNearestNeigbours(TraceEntry messpunkt, List<TraceEntry> offlineTraces,
 			int anzahlNachbarn) {
@@ -50,20 +50,20 @@ public class k_NearestNeighbour {
 	}
 
 	/**
-	 * Berechnet die Distanz der Signalstärke zu den Routern
+	 * Berechnet die Distanz der Signalstï¿½rke zu den Routern
 	 * 
 	 * Formel der Euklidischen Distanz dist=
-	 * sqrt((pow(gemesseneSignalstärkeZumRouter1-gesammelteOfflineSignalstarkeZumRouter1),2)
+	 * sqrt((pow(gemesseneSignalstï¿½rkeZumRouter1-gesammelteOfflineSignalstarkeZumRouter1),2)
 	 * +
-	 * pow(gemesseneSignalstärkeZumRouter2-gesammelteOfflineSignalstarkeZumRouter2),2)+...)
+	 * pow(gemesseneSignalstï¿½rkeZumRouter2-gesammelteOfflineSignalstarkeZumRouter2),2)+...)
 	 */
 	private double getDistanzeOfSignal(TraceEntry onlineFingerprint, TraceEntry offlineFingerprint) {
 		
 		SignalStrengthSamples offlineSignale = offlineFingerprint.getSignalStrengthSamples();
 		SignalStrengthSamples onlineSignale = onlineFingerprint.getSignalStrengthSamples();
 		
-		//Ermittel zunächst alle online Mac-Adressen, um zu den passenden Macadressen, 
-		//anschließend die Singalstärke eines Fingerprints abfragen zu können
+		//Ermittel zunï¿½chst alle online Mac-Adressen, um zu den passenden Macadressen, 
+		//anschlieï¿½end die Singalstï¿½rke eines Fingerprints abfragen zu kï¿½nnen
 		List<MACAddress> alleMacAdressen = onlineSignale.getSortedAccessPoints();	
 		//TODO muss ich auch alle MacAdressen der Offline Router nehmen
 		
@@ -71,7 +71,7 @@ public class k_NearestNeighbour {
 		List<Double> signalStaerkenOnline = new ArrayList<>();
 		for(MACAddress adresse: alleMacAdressen)
 		{
-			// Innerhalb des Fingerprintes existieren zu jeder MacAdresse eines Routers, mehrere Signalstärken
+			// Innerhalb des Fingerprintes existieren zu jeder MacAdresse eines Routers, mehrere Signalstï¿½rken
 			//Daher arbeitet man mit den Durchnittswert, der Empfangen wurde
 			signalStaerkenOffline.add(offlineSignale.getAverageSignalStrength(adresse));
 			signalStaerkenOnline.add(onlineSignale.getAverageSignalStrength(adresse));
@@ -80,28 +80,13 @@ public class k_NearestNeighbour {
 		}
 		
 		
-		return EuclidianDistance(signalStaerkenOnline, signalStaerkenOffline);
+		return Util.EuclidianDistance(signalStaerkenOnline, signalStaerkenOffline);
 	}
-
-	private double EuclidianDistance(List<Double> array1, List<Double> array2) {
-		
-		if (array1 == null || array2 == null || array1.size() != array2.size()) {
-			throw new RuntimeException("Die Arrays müssen gleich groß sein, um die Euklidische Distanz zu berechnen");
-		}
-
-		double calculated = 0;
-		for (int i = 0; i < array1.size(); i++) {
-			calculated = calculated + Math.pow(array1.get(i) - array2.get(i), 2);
-		}
-		return Math.sqrt(calculated);
-
-	}
-
 	/**
-	 * Pruefe ob ein neuer nächster Nachbar gefunden wurde. Falls ja, entferne den
-	 * Nachbarn mit der gröchsten Distanz und füge neuen Nachbarn hinzu
+	 * Pruefe ob ein neuer nï¿½chster Nachbar gefunden wurde. Falls ja, entferne den
+	 * Nachbarn mit der grï¿½chsten Distanz und fï¿½ge neuen Nachbarn hinzu
 	 * 
-	 * @return aktuallisierte Liste mit den Nächsten Nachbarn und ihrer Distanz
+	 * @return aktuallisierte Liste mit den Nï¿½chsten Nachbarn und ihrer Distanz
 	 */
 	private HashMap<TraceEntry, Double> sollWertInListe(TraceEntry naechsterNachbar, Double distanz,
 			HashMap<TraceEntry, Double> naechsteNachbarnDistanz, int anzahlNachbarn) {
@@ -129,7 +114,7 @@ public class k_NearestNeighbour {
 		}
 
 		// Neue Distanz ist kleiner als die gemerkten Werte.
-		// Entferne den größten Wert und füge den neuen Wert hinzu
+		// Entferne den grï¿½ï¿½ten Wert und fï¿½ge den neuen Wert hinzu
 		if (groessterGemerkteDistanz.getValue() > distanz) {
 			naechsteNachbarnDistanz.remove(groessterGemerkteDistanz);
 			naechsteNachbarnDistanz.put(naechsterNachbar, distanz);
@@ -140,8 +125,8 @@ public class k_NearestNeighbour {
 	}
 
 	/**
-	 * Bestimme von den übergebenen Nachbarn den Mittelpunkt (Schwerkunkt) k=Anzahl
-	 * der Übergebenen Nachbarn Koordinate X x=1/k * (X-Fingerprint1
+	 * Bestimme von den ï¿½bergebenen Nachbarn den Mittelpunkt (Schwerkunkt) k=Anzahl
+	 * der ï¿½bergebenen Nachbarn Koordinate X x=1/k * (X-Fingerprint1
 	 * +X-Fingerprint2+ X-Fingerprint3...)
 	 * 
 	 * @return Die gemittelte Position, an der man sich befindet
@@ -151,7 +136,7 @@ public class k_NearestNeighbour {
 
 		if (messpunkt == null || naechsteNachbarnDistanz == null || naechsteNachbarnDistanz.size() == 0) {
 			throw new RuntimeException("getAvaragePosition braucht einen Messpunkt und eine Liste mit den "
-					+ "nächsten Nachbarn zur durchschnittsberechnung");
+					+ "nï¿½chsten Nachbarn zur durchschnittsberechnung");
 		}
 
 		double xTotal = 0;
