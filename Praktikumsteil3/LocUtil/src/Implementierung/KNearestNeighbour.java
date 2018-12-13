@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 
 import org.pi4.locutil.GeoPosition;
@@ -35,7 +36,7 @@ public class KNearestNeighbour {
 	 *                       gemessenen Position sind
 	 * @return Die k-Nachbarn, die am nächsten zur gemessenen Position sind
 	 */
-	public HashMap<TraceEntry, Double> whoAreTheKNearestNeigbours(TraceEntry messpunkt, List<TraceEntry> offlineTraces,
+	public Set<TraceEntry> whoAreTheKNearestNeigbours(TraceEntry messpunkt, List<TraceEntry> offlineTraces,
 			int anzahlNachbarn) {
 
 		// Map, die zu den k naechsten Nachbarn die Distanz speichert
@@ -44,7 +45,7 @@ public class KNearestNeighbour {
 			double distanz = getDistanzeOfSignal(messpunkt, nachbar);
 			naechsteNachbarnDistanz = sollWertInListe(nachbar, distanz, naechsteNachbarnDistanz, anzahlNachbarn);
 		}
-		return naechsteNachbarnDistanz;
+		return naechsteNachbarnDistanz.keySet();
 
 	}
 
@@ -150,7 +151,7 @@ public class KNearestNeighbour {
 	 * @return Die gemittelte Position, an der man sich befindet
 	 */
 	public GeoPosition getAvaragePositionOfNeighbours(
-			HashMap<TraceEntry, Double> naechsteNachbarnDistanz) {
+			Set<TraceEntry> naechsteNachbarnDistanz) {
 
 		if ( naechsteNachbarnDistanz == null || naechsteNachbarnDistanz.size() == 0) {
 			throw new RuntimeException("getAvaragePosition braucht eine Liste mit den "
@@ -161,11 +162,11 @@ public class KNearestNeighbour {
 		double yTotal = 0;
 		double zTotal = 0;
 
-		for (Map.Entry<TraceEntry, Double> entry : naechsteNachbarnDistanz.entrySet()) {
+		for (TraceEntry entry : naechsteNachbarnDistanz) {
 
-			xTotal += entry.getKey().getGeoPosition().getX();
-			yTotal += entry.getKey().getGeoPosition().getY();
-			zTotal += entry.getKey().getGeoPosition().getZ();
+			xTotal += entry.getGeoPosition().getX();
+			yTotal += entry.getGeoPosition().getY();
+			zTotal += entry.getGeoPosition().getZ();
 		}
 
 		double xAvg = xTotal / naechsteNachbarnDistanz.size();

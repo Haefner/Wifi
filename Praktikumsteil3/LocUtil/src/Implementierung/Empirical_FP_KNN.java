@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.pi4.locutil.GeoPosition;
 import org.pi4.locutil.io.TraceGenerator;
@@ -25,7 +26,7 @@ public class Empirical_FP_KNN {
 		KNearestNeighbour k_NearestNeighbour = new KNearestNeighbour();
 		HashMap<GeoPosition, GeoPosition> exakteGemittelteGeoposition = new HashMap<>();
 		for (TraceEntry onlineFp : onlineTrace) {
-			HashMap<TraceEntry, Double> naechsteNachbarn = k_NearestNeighbour.whoAreTheKNearestNeigbours(onlineFp,
+			Set<TraceEntry> naechsteNachbarn = k_NearestNeighbour.whoAreTheKNearestNeigbours(onlineFp,
 					offlineTrace, anzahlNachbarn);
 			GeoPosition gemitteltePosition = k_NearestNeighbour.getAvaragePositionOfNeighbours(
 					naechsteNachbarn);
