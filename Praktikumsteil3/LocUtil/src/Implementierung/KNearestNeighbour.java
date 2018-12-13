@@ -19,7 +19,7 @@ import org.pi4.locutil.trace.TraceEntry;
  * @author haefn
  *
  */
-public class k_NearestNeighbour {
+public class KNearestNeighbour {
 
 	/**
 	 * Ermittle aus dem zuvor gesammelten Fingerprint und den gemessenen
@@ -58,33 +58,38 @@ public class k_NearestNeighbour {
 	 * pow(gemesseneSignalstärkeZumRouter2-gesammelteOfflineSignalstarkeZumRouter2),2)+...)
 	 */
 	private double getDistanzeOfSignal(TraceEntry onlineFingerprint, TraceEntry offlineFingerprint) {
-		
+
 		SignalStrengthSamples offlineSignale = offlineFingerprint.getSignalStrengthSamples();
 		SignalStrengthSamples onlineSignale = onlineFingerprint.getSignalStrengthSamples();
-		
-		//Ermittel zunächst alle online Mac-Adressen, um zu den passenden Macadressen, 
-		//anschließend die Singalstärke eines Fingerprints abfragen zu können
-		List<MACAddress> alleMacAdressen = onlineSignale.getSortedAccessPoints();	
-		//TODO muss ich auch alle MacAdressen der Offline Router nehmen
-		
+
+		// Ermittel zunächst alle online Mac-Adressen, um zu den passenden Macadressen,
+		// anschließend die Singalstärke eines Fingerprints abfragen zu können
+		List<MACAddress> alleMacAdressenOnline = onlineSignale.getSortedAccessPoints();
+		List<MACAddress> alleMacAdressenOffline = onlineSignale.getSortedAccessPoints();
+		// TODO muss ich auch alle MacAdressen der Offline Router nehmen
+
 		List<Double> signalStaerkenOffline = new ArrayList<>();
 		List<Double> signalStaerkenOnline = new ArrayList<>();
-		for(MACAddress adresse: alleMacAdressen)
-		{
-			// Innerhalb des Fingerprintes existieren zu jeder MacAdresse eines Routers, mehrere Signalstärken
-			//Daher arbeitet man mit den Durchnittswert, der Empfangen wurde
+		for (MACAddress adresse : alleMacAdressenOnline) {
+			// Prüfe erst, ob die MacAdresse überhaupt exisitert.
+			if (!alleMacAdressenOffline.contains(adresse)) {
+				continue;
+			}
+			// Innerhalb des Fingerprintes existieren zu jeder MacAdresse eines Routers,
+			// mehrere Signalstärken
+			// Daher arbeitet man mit den Durchnittswert, der Empfangen wurde
+			System.out.println(adresse.toString());
 			signalStaerkenOffline.add(offlineSignale.getAverageSignalStrength(adresse));
 			signalStaerkenOnline.add(onlineSignale.getAverageSignalStrength(adresse));
-			
-			//FIXME, was ist, wenn zu einer Macadresse kein Signal empfangen wurde
+
+			// FIXME, was ist, wenn zu einer Macadresse kein Signal empfangen wurde
 		}
-		
-		
+
 		return EuclidianDistance(signalStaerkenOnline, signalStaerkenOffline);
 	}
 
 	private double EuclidianDistance(List<Double> array1, List<Double> array2) {
-		
+
 		if (array1 == null || array2 == null || array1.size() != array2.size()) {
 			throw new RuntimeException("Die Arrays müssen gleich groß sein, um die Euklidische Distanz zu berechnen");
 		}
