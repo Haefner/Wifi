@@ -58,7 +58,7 @@ public class Diagram extends ApplicationFrame {
 	 * @param dateiname
 	 * @throws IOException
 	 */
-	public void zeichneDiamgram(String dateiname) throws IOException {
+	public void zeichneDiamgram(String dateiname, String diagramtitel, String nameXAchse, String nameYAchse) throws IOException {
 		JFreeChart chart = ChartFactory.createXYLineChart("WIFI-Positionierungsfehler", "Fehler in Meter",
 				"Prozentualer Fehler", dataset, PlotOrientation.VERTICAL, true, true, false);
 
