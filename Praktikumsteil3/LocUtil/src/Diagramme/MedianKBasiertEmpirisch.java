@@ -1,6 +1,7 @@
 package Diagramme;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class MedianKBasiertEmpirisch {
 		for(int k=1;k<9;k++)
 		{
 			kFehler.put((double)k, berechneEmpirisch(k));
+			System.out.println("kEmpirisch berechnet mit k = " +k);
 		}
 		Diagram diagram= new Diagram("Median Genauigkeit Empirisch");
 		diagram.addLine(kFehler,"Median");
@@ -34,14 +36,21 @@ public class MedianKBasiertEmpirisch {
 	}
 	
 	private double berechneEmpirisch(int k) {
+	List<Double> fehlerK = new ArrayList<>();
+	Score_NN score_NN = new Score_NN();
+	for(int i=0; i<10;i++) {
 	Empirical_FP_KNN eFPKNN = new Empirical_FP_KNN();
-	Score_NN score= new Score_NN();
 	HashMap<GeoPosition, GeoPosition>  map= eFPKNN.berechneEmpiricalFP_KNN(k);
 	
-	List<Double> fehler= score.berechneFehler(map);
-	List<Double> sortierterFehler=score.sortiereFehlerList(fehler);
+	List<Double> fehler= Score_NN.berechneFehler(map);
+	List<Double> sortierterFehler=score_NN.sortiereFehlerList(fehler);
 	int mitte =sortierterFehler.size()/2;
-	return sortierterFehler.get(mitte);
+	fehlerK.add(sortierterFehler.get(mitte));
+	}
+	List<Double> sortierterFehlerK= score_NN.sortiereFehlerList(fehlerK);
+	int mitteK =sortierterFehlerK.size()/2;
+	return sortierterFehlerK.get(mitteK);
+	
 	
 	}
 	
