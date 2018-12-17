@@ -13,9 +13,11 @@ import org.pi4.locutil.trace.TraceEntry;
 
 public class Model_FP_KNN {
 	
+
 	private List<TraceEntry> offlineTrace;
 	private List<TraceEntry> onlineTrace;
 	private List<TraceEntry> generatedTrace;
+	
 	
 	public HashMap<GeoPosition, GeoPosition> berechneModel_FP_KNN(int anzahlNachbarn) {
 		
@@ -30,13 +32,13 @@ public class Model_FP_KNN {
 					generatedTrace, anzahlNachbarn);
 			GeoPosition gemitteltePosition = k_NearestNeighbour.getAvaragePositionOfNeighbours(
 					naechsteNachbarn);
-			System.out.println(gemitteltePosition);
+			//System.out.println(gemitteltePosition);
 			exakteGemittelteGeoposition.put(onlineFp.getGeoPosition(), gemitteltePosition);
 		}
 		
 
 		
-		System.out.println("Model Traces exportieren.");
+	    System.out.println("Model Traces exportieren.");
 		try {
 			Util.writeTraces("model",generatedTrace);
 		} catch (IOException e) {
@@ -51,7 +53,6 @@ public class Model_FP_KNN {
 		
 		
 	}
-	
 	
 	private void getTraces() {
 		String offlinePath = "data/MU.1.5meters.offline.trace", onlinePath = "data/MU.1.5meters.online.trace";

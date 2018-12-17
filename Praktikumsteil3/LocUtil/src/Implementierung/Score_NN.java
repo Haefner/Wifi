@@ -1,5 +1,6 @@
 package Implementierung;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.pi4.locutil.GeoPosition;
+
+import Diagramme.Diagram;
 
 /**
  * Zur Berechnung der Fehler zwischen der Position des exakten Fingerprints und
@@ -17,17 +20,6 @@ import org.pi4.locutil.GeoPosition;
  */
 public class Score_NN {
 
-	HashMap<GeoPosition, GeoPosition> exakteGemittelteGeopositionSortiert = new HashMap<>();
-	
-	public static void main(String[] args) {
-		Empirical_FP_NN eFPNN = new Empirical_FP_NN();
-		eFPNN.berechneEmpiricalFP_NN();
-		List<Double> fehlerList = new ArrayList<>();
-		//fehlerList = berechneFehler(eFPNN.berechneEmpiricalFP_NN());
-		//sortiereFehlerList(fehlerList);
-		//erzeugeWahrscheinlichkeitsList(fehlerList.size());
-
-	}
 	public Score_NN(){
 		
 	}
@@ -87,9 +79,9 @@ public class Score_NN {
 		for(int i=0; i<size; i++) {
 			wahrscheinlichkeitsList.add(i,(i+1)*aufloesung);
 		}
-		for(int j=0; j<wahrscheinlichkeitsList.size();j++) {
-			System.out.println("Wahrscheinlichkeit: " + wahrscheinlichkeitsList.get(j) + "\t\t" + "Position : " + j);
-		}
+//		for(int j=0; j<wahrscheinlichkeitsList.size();j++) {
+//			System.out.println("Wahrscheinlichkeit: " + wahrscheinlichkeitsList.get(j) + "\t\t" + "Position : " + j);
+//		}
 		return wahrscheinlichkeitsList;
 	}
 	

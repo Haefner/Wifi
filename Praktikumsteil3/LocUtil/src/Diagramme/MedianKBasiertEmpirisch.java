@@ -49,6 +49,7 @@ public class MedianKBasiertEmpirisch {
 	}
 	List<Double> sortierterFehlerK= score_NN.sortiereFehlerList(fehlerK);
 	int mitteK =sortierterFehlerK.size()/2;
+	System.out.println("Median Fehler:"+sortierterFehlerK.get(mitteK));
 	return sortierterFehlerK.get(mitteK);
 	
 	
