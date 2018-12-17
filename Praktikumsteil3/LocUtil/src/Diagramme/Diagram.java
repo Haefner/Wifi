@@ -59,8 +59,8 @@ public class Diagram extends ApplicationFrame {
 	 * @throws IOException
 	 */
 	public void zeichneDiamgram(String dateiname, String diagramtitel, String nameXAchse, String nameYAchse) throws IOException {
-		JFreeChart chart = ChartFactory.createXYLineChart("WIFI-Positionierungsfehler", "Fehler in Meter",
-				"Prozentualer Fehler", dataset, PlotOrientation.VERTICAL, true, true, false);
+		JFreeChart chart = ChartFactory.createXYLineChart(diagramtitel, nameXAchse,
+				nameYAchse, dataset, PlotOrientation.VERTICAL, true, true, false);
 
 		File file = new File(dateiname);
 		ChartUtilities.saveChartAsJPEG(file, chart, 800, 800);
