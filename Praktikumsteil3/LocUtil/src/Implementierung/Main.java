@@ -5,11 +5,12 @@ import java.util.HashMap;
 
 import Diagramme.Diagram;
 import Diagramme.MedianKBasiertEmpirisch;
+import Diagramme.MedianKBasiertModell;
 
 public class Main {
 	
 	public static void main(String[] args) {
-		Empirical_FP_NN eFPNN = new Empirical_FP_NN();
+	/*	Empirical_FP_NN eFPNN = new Empirical_FP_NN();
 		eFPNN.berechneEmpiricalFP_NN();
 		
 		Empirical_FP_KNN eFPKNN = new Empirical_FP_KNN();
@@ -43,11 +44,14 @@ public class Main {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		
-		MedianKBasiertEmpirisch medianKBasiertEmpirisch= new MedianKBasiertEmpirisch();
-		medianKBasiertEmpirisch.erzeugeDiagram();
+		/*MedianKBasiertEmpirisch medianKBasiertEmpirisch= new MedianKBasiertEmpirisch();
+		medianKBasiertEmpirisch.erzeugeDiagram();*/
+		
+		MedianKBasiertModell medianKBasiertModell = new MedianKBasiertModell();
+		medianKBasiertModell.erzeugeDiagram();
 		
 	}
 
