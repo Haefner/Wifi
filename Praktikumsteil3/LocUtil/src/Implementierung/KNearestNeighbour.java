@@ -135,7 +135,7 @@ public class KNearestNeighbour {
 		// Neue Distanz ist kleiner als die gemerkten Werte.
 		// Entferne den größten Wert und füge den neuen Wert hinzu
 		if (groessterGemerkteDistanz.getValue() > distanz) {
-			naechsteNachbarnDistanz.remove(groessterGemerkteDistanz);
+			naechsteNachbarnDistanz.remove(groessterGemerkteDistanz.getKey());
 			naechsteNachbarnDistanz.put(naechsterNachbar, distanz);
 		}
 
