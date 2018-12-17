@@ -3,6 +3,8 @@ package Implementierung;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -61,5 +63,6 @@ public static void writeTraces(String outfile,List<TraceEntry> traces) throws IO
 	// Close the output file.
 	out.close();
 }
+
 }
 

@@ -39,6 +39,7 @@ public class Model {
 		TraceEntry tr;
 		MACAddress dummyMac = MACAddress.parse("00:00:00:00:00:00");
 
+		//Berechnen der Signalstärken zu jedem Punkt.
 		for (TraceEntry traceEntry : offlineTraces) {
 			
 			SignalStrengthSamples sSample = new SignalStrengthSamples();
@@ -49,7 +50,7 @@ public class Model {
 				distance = Util.euclidianDistance(ap.getPosition().getX(), traceEntry.getGeoPosition().getX(),
 						ap.getPosition().getY(), traceEntry.getGeoPosition().getY());
 
-				Pd = Pd0 - (10.0 *n* Math.log10(distance / d0));
+				Pd = Pd0 - (10.0 *n* Math.log10(distance / d0));//WAF wird ignoriert.
 				
 				sSample.put(ap.getAddress(), Pd);
 
