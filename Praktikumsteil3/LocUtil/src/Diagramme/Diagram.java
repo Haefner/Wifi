@@ -1,5 +1,7 @@
 package Diagramme;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,7 +20,9 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 
+
 import javafx.scene.chart.NumberAxis;
+
 
 /**
  * Siehe Anleitung in der Datei "Wifi/LibFuerDiagram/Libraries hinzufügen"
@@ -62,6 +66,20 @@ public class Diagram extends ApplicationFrame {
 		JFreeChart chart = ChartFactory.createXYLineChart(diagramtitel, nameXAchse,
 				nameYAchse, dataset, PlotOrientation.VERTICAL, true, true, false);
 
+		ChartPanel chartPanel = new ChartPanel(chart);
+	    final XYPlot plot = chart.getXYPlot();
+	      
+	    XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+	    renderer.setSeriesPaint(0, Color.RED);
+	    renderer.setSeriesPaint(1, Color.GREEN);
+	    renderer.setSeriesPaint(2, Color.BLUE);
+	    renderer.setSeriesPaint(3, Color.BLACK);
+	    renderer.setSeriesStroke(0, new BasicStroke(2.0f));
+	    renderer.setSeriesStroke(1, new BasicStroke(2.0f));
+	    renderer.setSeriesStroke(2, new BasicStroke(2.0f));
+	    renderer.setSeriesStroke(3, new BasicStroke(2.0f));
+	    plot.setRenderer(renderer); 
+	    setContentPane(chartPanel); 
 		File file = new File(dateiname);
 		ChartUtilities.saveChartAsJPEG(file, chart, 800, 800);
 
