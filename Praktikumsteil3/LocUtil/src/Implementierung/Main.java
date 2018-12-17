@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import Diagramme.Diagram;
+import Diagramme.MedianKBasiertEmpirisch;
 
 public class Main {
 	
@@ -45,6 +46,8 @@ public class Main {
 		}
 		
 		
+		MedianKBasiertEmpirisch medianKBasiertEmpirisch= new MedianKBasiertEmpirisch();
+		medianKBasiertEmpirisch.erzeugeDiagram();
 		
 	}
 

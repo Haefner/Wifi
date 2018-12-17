@@ -27,7 +27,7 @@ public class Score_NN {
 	 * @param
 	 * @return 
 	 */
-	public static List berechneFehler(HashMap<GeoPosition, GeoPosition> map) {
+	public static List<Double> berechneFehler(HashMap<GeoPosition, GeoPosition> map) {
 		List<Double> fehlerList = new ArrayList<>();
 		// getting keySet() into Set
 		Set<GeoPosition> set = map.keySet();
