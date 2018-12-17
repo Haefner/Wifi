@@ -39,7 +39,9 @@ public class Score_NN {
 	 * @return Liste, die die berechneten Fehler zwischen der Position des exakten Fingerprint 
 	 * 		   und der Position des gemittelten Fingerprint enthält
 	 */
-	public List berechneFehler(HashMap<GeoPosition, GeoPosition> map) {
+
+	public static List<Double> berechneFehler(HashMap<GeoPosition, GeoPosition> map) {
+
 		List<Double> fehlerList = new ArrayList<>();
 		// getting keySet() into Set
 		Set<GeoPosition> set = map.keySet();
