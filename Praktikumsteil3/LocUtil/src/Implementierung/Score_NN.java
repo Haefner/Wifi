@@ -40,9 +40,9 @@ public class Score_NN {
             //System.out.println("fehler : "  + fehler +"\t\t" + "Position : " + i + "\t\t" + "itr : " + fehlerList.get(i));
             i++;
         }
-		for(int j=0; j<fehlerList.size();j++) {
-			System.out.println("fehler in List: " + fehlerList.get(j) + "\t\t" + "Position : " + j);
-		}
+//		for(int j=0; j<fehlerList.size();j++) {
+//			System.out.println("fehler in List: " + fehlerList.get(j) + "\t\t" + "Position : " + j);
+//		}
 		return fehlerList;
 	}
 	
@@ -53,9 +53,9 @@ public class Score_NN {
 	 */
 	public static List sortiereFehlerList(List list) {
 		Collections.sort(list);
-		for(int j=0; j<list.size();j++) {
-			System.out.println("fehler in List: " + list.get(j) + "\t\t" + "Position : " + j);
-		}
+//		for(int j=0; j<list.size();j++) {
+//			System.out.println("fehler in List: " + list.get(j) + "\t\t" + "Position : " + j);
+//		}
 		return list;
 	}
 	
