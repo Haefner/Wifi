@@ -66,5 +66,27 @@ public class Diagram extends ApplicationFrame {
 		ChartUtilities.saveChartAsJPEG(file, chart, 800, 800);
 
 	}
+	
+	/**
+	 * Zeichnet die zuvor hinzugefügten PUNKTE in ein Diagram und schreibt das
+	 * Diagramm in eine Datei
+	 * 
+	 * @param dateiname
+	 * @throws IOException
+	 */
+	public void zeichnePunktDiagram(String dateiname, String diagramtitel, String nameXAchse, String nameYAchse) throws IOException {
+		JFreeChart chart = ChartFactory.createXYLineChart(diagramtitel, nameXAchse,
+				nameYAchse, dataset, PlotOrientation.VERTICAL, true, true, false);
+
+		//Daten zwar mit addline() hinzugefügt aber mit setSeriesLinesVisible(0,false) werden die Linien nicht dargestellt
+		final XYPlot plot = chart.getXYPlot();
+	    final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+	    renderer.setSeriesLinesVisible(0, false);
+	    plot.setRenderer(renderer);
+
+		File file = new File(dateiname);
+		ChartUtilities.saveChartAsJPEG(file, chart, 800, 800);
+	}
+	
 
 }
