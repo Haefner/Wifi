@@ -37,11 +37,10 @@ public class MedianKBasiertEmpirisch {
 	
 	private double berechneEmpirisch(int k) {
 		List<Double> fehlerK = new ArrayList<>();
+		Empirical_FP_KNN eFPKNN = new Empirical_FP_KNN();
 		Score_NN score_NN = new Score_NN();
 		for (int i = 0; i < 10; i++) {
-			Empirical_FP_KNN eFPKNN = new Empirical_FP_KNN();
 			HashMap<GeoPosition, GeoPosition> map = eFPKNN.berechneEmpiricalFP_KNN(k);
-
 			List<Double> fehler = Score_NN.berechneFehler(map);
 			List<Double> sortierterFehler = score_NN.sortiereFehlerList(fehler);
 			int mitte = sortierterFehler.size() / 2;

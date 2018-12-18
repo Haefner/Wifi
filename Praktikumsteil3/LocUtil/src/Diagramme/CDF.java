@@ -45,13 +45,14 @@ public class CDF {
 		HashMap<Double,Double> model_FP_KNNwerteFuerCDF = new HashMap();
 		
 		Score_NN score_nn = new Score_NN();
-		
+		int kEmpirical = 3;
+		int kModel = 3;
 		
 		empirical_FP_NNfehlerList = score_nn.berechneFehler(eFPNN.berechneEmpiricalFP_NN());
 		empirical_FP_NNsortierteList = score_nn.sortiereFehlerList(empirical_FP_NNfehlerList);
 		empirical_FP_NNwahrscheinlichkeitsList = score_nn.erzeugeWahrscheinlichkeitsList(empirical_FP_NNfehlerList.size());
 		
-		empirical_FP_KNNfehlerList = score_nn.berechneFehler(eFPKNN.berechneEmpiricalFP_KNN(3));
+		empirical_FP_KNNfehlerList = score_nn.berechneFehler(eFPKNN.berechneEmpiricalFP_KNN(kEmpirical));
 		empirical_FP_KNNsortierteList = score_nn.sortiereFehlerList(empirical_FP_KNNfehlerList);
 		empirical_FP_KNNwahrscheinlichkeitsList = score_nn.erzeugeWahrscheinlichkeitsList(empirical_FP_KNNfehlerList.size());
 		
@@ -59,7 +60,7 @@ public class CDF {
 		model_FP_NNsortierteList = score_nn.sortiereFehlerList(model_FP_NNfehlerList);
 		model_FP_NNwahrscheinlichkeitsList = score_nn.erzeugeWahrscheinlichkeitsList(model_FP_NNfehlerList.size());
 		
-		model_FP_KNNfehlerList = score_nn.berechneFehler(mFPKNN.berechneModel_FP_KNN(3));
+		model_FP_KNNfehlerList = score_nn.berechneFehler(mFPKNN.berechneModel_FP_KNN(kModel));
 		model_FP_KNNsortierteList = score_nn.sortiereFehlerList(model_FP_KNNfehlerList);
 		model_FP_KNNwahrscheinlichkeitsList = score_nn.erzeugeWahrscheinlichkeitsList(model_FP_KNNfehlerList.size());
 		
@@ -77,10 +78,10 @@ public class CDF {
 		}
 		
 		Diagram diagramm = new Diagram("Test");
-		diagramm.addLine(empirical_FP_NNwerteFuerCDF, "empirical NN");
-		diagramm.addLine(empirical_FP_KNNwerteFuerCDF, "empirical KNN");
-		diagramm.addLine(model_FP_NNwerteFuerCDF, "model NN");
-		diagramm.addLine(model_FP_KNNwerteFuerCDF, "model KNN");
+		diagramm.addLine(empirical_FP_NNwerteFuerCDF, "empirical k=1");
+		diagramm.addLine(empirical_FP_KNNwerteFuerCDF, "empirical k=" + kEmpirical );
+		diagramm.addLine(model_FP_NNwerteFuerCDF, "model k=1");
+		diagramm.addLine(model_FP_KNNwerteFuerCDF, "model k=" + kModel);
 		try {
 			diagramm.zeichneDiamgram("CDF.jpeg", "cumulative distribution function (CDF)", "Fehler in Meter",
 					"Prozentualer Fehler");

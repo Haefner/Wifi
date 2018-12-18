@@ -30,7 +30,6 @@ public class Empirical_FP_NN {
 					offlineTrace, 1);
 			GeoPosition gemitteltePosition = k_NearestNeighbour.getAvaragePositionOfNeighbours(
 					naechsteNachbarn);
-			System.out.println(gemitteltePosition);
 			exakteGemittelteGeoposition.put(onlineFp.getGeoPosition(), gemitteltePosition);
 		}
 

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.pi4.locutil.GeoPosition;
 
@@ -35,20 +36,12 @@ public class Score_NN {
 	public static List<Double> berechneFehler(HashMap<GeoPosition, GeoPosition> map) {
 
 		List<Double> fehlerList = new ArrayList<>();
-		// getting keySet() into Set
-		Set<GeoPosition> set = map.keySet();
-        // get Iterator from key set
-        Iterator<GeoPosition> itr = set.iterator();
-        int i = 0;
-		while(itr.hasNext()) {
-            double fehler = itr.next().distance(map.get(set.iterator().next()));
-            fehlerList.add(i, fehler);
-            //System.out.println("fehler : "  + fehler +"\t\t" + "Position : " + i + "\t\t" + "itr : " + fehlerList.get(i));
-            i++;
+		for(Map.Entry<GeoPosition,GeoPosition> positionen: map.entrySet()) {
+            double fehler = positionen.getKey().distance(positionen.getValue());
+            fehlerList.add(fehler);
+            System.out.println("fehler in List: " + fehlerList.get(fehlerList.size()-1) + "\t\t" + "Position 1: " + positionen.getKey()
+            + "\t\t" + "Position 2: " + positionen.getValue());
         }
-//		for(int j=0; j<fehlerList.size();j++) {
-//			System.out.println("fehler in List: " + fehlerList.get(j) + "\t\t" + "Position : " + j);
-//		}
 		return fehlerList;
 	}
 	

@@ -120,5 +120,15 @@ public class testKNearestNeighbour {
 		
 		
 		Assert.assertEquals(-106.5/3, kNearestNeighbour.getAvaragePositionOfNeighbours(ergebnis).getX());
+	
+		Set<TraceEntry> ergebnis2 = kNearestNeighbour.whoAreTheKNearestNeigbours(online, offlineTraces, 2);
+		Assert.assertTrue(ergebnis2.contains(of1));
+		Assert.assertTrue(ergebnis2.contains(of2));
+		Assert.assertFalse(ergebnis2.contains(of3));
+		Assert.assertFalse(ergebnis2.contains(of4));
+		Assert.assertFalse(ergebnis2.contains(of5));
+		
+		Assert.assertEquals(-56.0/2, kNearestNeighbour.getAvaragePositionOfNeighbours(ergebnis2).getX());
+	
 	}
 }
