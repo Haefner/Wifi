@@ -23,14 +23,24 @@ public class SignalStrengthDependingDistance {
 	private List<Point> strengthDependingDistancePoints;
 	
 	public static void main(String[] args) {
+		
+		/* Set Anzahl Messwerte für den Tracegenerator */
+		int anzahlOfflineTraces = 10;
+		int anzahlOnlineTraces = 0;
+		/* Set AP */
+		int apNr = 5; //apNr = 6: 0 Messpunkte (AP war ausgeschaltet -> hat keine Signalstärken geliefert)!
+		
 		SignalStrengthDependingDistance ssdd = new SignalStrengthDependingDistance();
-		ssdd.getTraces();
+		/* Online- und Offline-Traces erzeugen */
+		ssdd.getTraces(anzahlOfflineTraces, anzahlOnlineTraces);
+		
 		System.out.println("offline size: " + ssdd.getOfflineTraces().size());
 		System.out.println("aps size: " + ssdd.getAccessPoints().size());
-		// TODO: 10 Signalstärken je Messpunkt nehmen und dann Mitteln
-		//       Passende AP-Nr. Übergeben und in Diagramm schreiben
-		ssdd.berechneSignalstärkeZurEntfernung(ssdd.getAccessPoints().get(6),ssdd.getOfflineTraces());
-		ssdd.zeichneDiagramm();
+		
+		// TODO: 1) 10 Signalstärken je Messpunkt nehmen und dann Mitteln
+		//       2) Passende AP-Nr. Übergeben und in Diagramm schreiben		ERLEDIGT
+		ssdd.berechneSignalstärkeZurEntfernung(ssdd.getAccessPoints().get(apNr - 1),ssdd.getOfflineTraces());
+		ssdd.zeichneDiagramm(ssdd.getAccessPoints().get(apNr - 1));
 	}
 	
 	
@@ -56,14 +66,20 @@ public class SignalStrengthDependingDistance {
 	
 	}
 	
-	
+	/**
+	 * Erstellt eine Liste mit den Punkten (x: entfernung zum AP, y: Signalstärke vom AP).
+	 * Zuerst wird zu jedem Messpunkt die Entfernung zum AP berechnet. Dann wird die Signalstärke zur Liste hinzugefügt
+	 * 
+	 * @param ap: 		AccessPoint zu dem das Diagramm erstellt wird 
+	 * 		  traces:	Liste mit den Signalstärken von allen Punkten zu dem AccessPoint
+	 */
 	public void berechneSignalstärkeZurEntfernung(AccessPoint ap, List<TraceEntry> traces) {
 		double apX = ap.getPosition().getX();
 		double apY = ap.getPosition().getY();
 		double d;
 		double signalStrength;
 		
-		System.out.println("x: " + traces.get(1).getGeoPosition().getX());
+		//System.out.println("x: " + traces.get(1).getGeoPosition().getX());
 		for(TraceEntry te : traces) {
 			/** berechnet Entfernung zwischen dem aktuellen Messpunkt und dem AP **/
 			d = Util.euclidianDistance(apX, te.getGeoPosition().getX(), apY, te.getGeoPosition().getY());
@@ -85,20 +101,20 @@ public class SignalStrengthDependingDistance {
 		//for(Point p: strengthDependingDistancePoints) {
 		//	System.out.println("x: " + p.m_x + " ,y: " + p.m_y);
 		//}
-				
+		System.out.println("Anzahl Messpunkte: " + strengthDependingDistancePoints.size());	
 	}
 	
 	
-	public void zeichneDiagramm(){
+	public void zeichneDiagramm(AccessPoint ap){
 		Diagram diagram= new Diagram("Diagram");
 		HashMap<Double, Double> points = new HashMap<>();
 		for(Point p: strengthDependingDistancePoints) {
 			points.put(p.m_x, p.m_y);
 		}
-		diagram.addLine(points, "AP1");
+		diagram.addLine(points, ap.getName() + ", MAC: " + ap.getAddress().toString());
 
 		try {
-			diagram.zeichnePunktDiagram("signalstrength-Distance.jpeg", "", "Distanz [m]",
+			diagram.zeichnePunktDiagram("signalstrength-Distance.jpeg", "Signalstärke in Bezug zur Entfernung zum AP", "Distanz [m]",
 					"Signalstärke [dBm]");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -108,7 +124,7 @@ public class SignalStrengthDependingDistance {
 	
 	
 	
-	private void getTraces() {
+	private void getTraces(int nOffline, int nOnline) {
 		String offlinePath = "data/MU.1.5meters.offline.trace", onlinePath = "data/MU.1.5meters.online.trace";
 
 		// Construct parsers
@@ -124,8 +140,8 @@ public class SignalStrengthDependingDistance {
 		TraceGenerator tg;
 
 		try {
-			int offlineSize = 1;
-			int onlineSize = 5;
+			int offlineSize = nOffline;
+			int onlineSize = nOnline;
 			tg = new TraceGenerator(offlineParser, onlineParser, offlineSize, onlineSize);
 
 			// Generate traces from parsed files
