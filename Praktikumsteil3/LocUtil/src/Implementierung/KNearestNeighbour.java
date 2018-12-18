@@ -66,22 +66,22 @@ public class KNearestNeighbour {
 		// anschließend die Singalstärke eines Fingerprints abfragen zu können
 		List<MACAddress> alleMacAdressenOnline = onlineSignale.getSortedAccessPoints();
 		List<MACAddress> alleMacAdressenOffline = offlineSignale.getSortedAccessPoints();
-		// TODO muss ich auch alle MacAdressen der Offline Router nehmen
 
 		List<Double> signalStaerkenOffline = new ArrayList<>();
 		List<Double> signalStaerkenOnline = new ArrayList<>();
 		for (MACAddress adresse : alleMacAdressenOnline) {
 			// Prüfe erst, ob die MacAdresse überhaupt exisitert.
 			if (!alleMacAdressenOffline.contains(adresse)) {
-				continue;
+				signalStaerkenOffline.add(-90.0);
+			}
+			else {
+				signalStaerkenOffline.add(offlineSignale.getAverageSignalStrength(adresse));
 			}
 			// Innerhalb des Fingerprintes existieren zu jeder MacAdresse eines Routers,
 			// mehrere Signalstärken
 			// Daher arbeitet man mit den Durchnittswert, der Empfangen wurde
-			signalStaerkenOffline.add(offlineSignale.getAverageSignalStrength(adresse));
 			signalStaerkenOnline.add(onlineSignale.getAverageSignalStrength(adresse));
 
-			// FIXME, was ist, wenn zu einer Macadresse kein Signal empfangen wurde
 		}
 
 		return EuclidianDistance(signalStaerkenOnline, signalStaerkenOffline);

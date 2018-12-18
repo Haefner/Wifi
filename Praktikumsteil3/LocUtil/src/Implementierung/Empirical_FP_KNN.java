@@ -18,7 +18,7 @@ public class Empirical_FP_KNN {
 
 	/**
 	 * 
-	 * @return Hashmap, die als Key die zu einem FIngerprint gehörige exaktePosition
+	 * @return Hashmap, die als Key die zu einem Fingerprint gehörige exaktePosition
 	 *         und als Value die gemittelte Position zurück gibt
 	 */
 	public HashMap<GeoPosition, GeoPosition> berechneEmpiricalFP_KNN(int anzahlNachbarn) {
