@@ -30,7 +30,7 @@ public class Model_FP_NN {
 					generatedTrace, 1);
 			GeoPosition gemitteltePosition = k_NearestNeighbour.getAvaragePositionOfNeighbours(
 					naechsteNachbarn);
-			System.out.println(gemitteltePosition);
+			//System.out.println(gemitteltePosition);
 			exakteGemittelteGeoposition.put(onlineFp.getGeoPosition(), gemitteltePosition);
 		}
 		
