@@ -84,7 +84,7 @@ public class testKNearestNeighbour {
 		TraceEntry of1 = new TraceEntry(1L, new GeoPosition(-20.5, -10.75), 1.0, mac, samples1);
 		offlineTraces.add(of1);
 
-		// Offline3
+		// Offline4
 		SignalStrengthSamples samples4 = new SignalStrengthSamples();
 		samples4.put(mac1, -36.0);
 		samples4.put(mac2, -33.0);
@@ -93,6 +93,15 @@ public class testKNearestNeighbour {
 		TraceEntry of4 = new TraceEntry(1L, new GeoPosition(-70.5, -10.75), 1.0, mac, samples4);
 		offlineTraces.add(of4);
 
+		// Offline5
+		SignalStrengthSamples samples5 = new SignalStrengthSamples();
+		samples5.put(mac1, -46.0);
+		samples5.put(mac2, -43.0);
+		samples5.put(mac3, -44.0);
+		samples5.put(mac4, -41.0);
+		TraceEntry of5 = new TraceEntry(1L, new GeoPosition(-70.5, -30.75), 1.0, mac, samples5);
+		offlineTraces.add(of4);
+				
 		// Offline2
 		SignalStrengthSamples samples2 = new SignalStrengthSamples();
 		samples2.put(mac1, -16.0);
@@ -107,5 +116,9 @@ public class testKNearestNeighbour {
 		Assert.assertTrue(ergebnis.contains(of2));
 		Assert.assertTrue(ergebnis.contains(of1));
 		Assert.assertFalse(ergebnis.contains(of4));
+		Assert.assertFalse(ergebnis.contains(of5));
+		
+		
+		Assert.assertEquals(-106.5/3, kNearestNeighbour.getAvaragePositionOfNeighbours(ergebnis).getX());
 	}
 }
