@@ -39,8 +39,8 @@ public class Score_NN {
 		for(Map.Entry<GeoPosition,GeoPosition> positionen: map.entrySet()) {
             double fehler = positionen.getKey().distance(positionen.getValue());
             fehlerList.add(fehler);
-            System.out.println("fehler in List: " + fehlerList.get(fehlerList.size()-1) + "\t\t" + "Position 1: " + positionen.getKey()
-            + "\t\t" + "Position 2: " + positionen.getValue());
+//            System.out.println("fehler in List: " + fehlerList.get(fehlerList.size()-1) + "\t\t" + "Position 1: " + positionen.getKey()
+//            + "\t\t" + "Position 2: " + positionen.getValue());
         }
 		return fehlerList;
 	}
