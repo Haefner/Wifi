@@ -100,6 +100,7 @@ public class Diagram extends ApplicationFrame {
 		final XYPlot plot = chart.getXYPlot();
 	    final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 	    renderer.setSeriesLinesVisible(0, false);
+	    renderer.setSeriesPaint(0, Color.GREEN);
 	    plot.setRenderer(renderer);
 
 		File file = new File(dateiname);

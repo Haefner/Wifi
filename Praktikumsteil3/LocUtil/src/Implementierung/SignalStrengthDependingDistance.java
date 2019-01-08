@@ -28,7 +28,7 @@ public class SignalStrengthDependingDistance {
 		int anzahlOfflineTraces = 10;
 		int anzahlOnlineTraces = 0;
 		/* Set AP */
-		int apNr = 5; //apNr = 6: 0 Messpunkte (AP war ausgeschaltet -> hat keine Signalstärken geliefert)!
+		int apNr = 7; //apNr = 6: 0 Messpunkte (AP war ausgeschaltet -> hat keine Signalstärken geliefert)!
 		
 		SignalStrengthDependingDistance ssdd = new SignalStrengthDependingDistance();
 		/* Online- und Offline-Traces erzeugen */
@@ -37,8 +37,6 @@ public class SignalStrengthDependingDistance {
 		System.out.println("offline size: " + ssdd.getOfflineTraces().size());
 		System.out.println("aps size: " + ssdd.getAccessPoints().size());
 		
-		// TODO: 1) 10 Signalstärken je Messpunkt nehmen und dann Mitteln
-		//       2) Passende AP-Nr. Übergeben und in Diagramm schreiben		ERLEDIGT
 		ssdd.berechneSignalstärkeZurEntfernung(ssdd.getAccessPoints().get(apNr - 1),ssdd.getOfflineTraces());
 		ssdd.zeichneDiagramm(ssdd.getAccessPoints().get(apNr - 1));
 	}
